@@ -1,0 +1,3 @@
+This repo contains the static files that I am putting into every rubygem I
+create. I symlink to them from my gem repos. This way I can keep them all up to
+date.
