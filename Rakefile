@@ -1,5 +1,6 @@
 # Load Gem constants from the gemspec
-load 'gemspec'
+GemSpecFile = '.gemspec'
+load GemSpecFile
 GemName = GemSpec.name
 GemVersion = GemSpec.version
 GemDir = "#{GemName}-#{GemVersion}"
@@ -25,7 +26,7 @@ end
 
 desc 'Build the gem'
 task :build => [:clean, :test] do
-  sh 'gem build gemspec'
+  sh "gem build #{GemSpecFile}"
 end
 
 desc 'Build, unpack and inspect the gem'
