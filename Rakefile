@@ -29,8 +29,13 @@ task :build => [:clean, :test] do
   sh "gem build #{GemSpecFile}"
 end
 
+desc 'Install the gem'
+task :install => [:build] do
+  sh "gem install #{GemFile}"
+end
+
 desc 'Build, unpack and inspect the gem'
-task :dir => [:build] do
+task :distdir => [:build] do
   sh "tar xf #{GemFile} #{DevNull}"
   Dir.mkdir GemDir
   Dir.chdir GemDir
@@ -41,7 +46,7 @@ end
 
 desc 'Build and push the gem'
 task :release => [:build] do
-  puts "gem push #{GemFile}"
+  sh "gem push #{GemFile}"
 end
 
 desc 'Print a description of the gem'
