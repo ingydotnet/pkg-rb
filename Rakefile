@@ -11,6 +11,7 @@ DevNull = '2>/dev/null'
 require 'rake'
 require 'rake/testtask'
 require 'rake/clean'
+require './lib/rake/testml'
 
 task :default => 'help'
 
