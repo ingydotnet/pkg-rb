@@ -11,7 +11,9 @@ DevNull = '2>/dev/null'
 require 'rake'
 require 'rake/testtask'
 require 'rake/clean'
-require 'rake/testml'
+if File.exists? 'test/testml.yaml'
+  require 'rake/testml'
+end
 
 task :default => 'help'
 
