@@ -12,6 +12,9 @@ require 'rake'
 require 'rake/testtask'
 require 'rake/clean'
 if File.exists? 'test/testml.yaml'
+  if File.exists? 'lib/rake/testml.rb'
+    $:.unshift "#{Dir.getwd}/lib"
+  end
   require 'rake/testml'
 end
 
@@ -23,7 +26,14 @@ desc 'Run the tests'
 task :test do
   Rake::TestTask.new do |t|
     t.verbose = true
-    t.test_files = FileList['test/*.rb']
+#     t.test_files = FileList['test/*.rb'].sort
+    t.test_files = FileList[
+      'test/basic.rb',
+      'test/match.rb',
+      'test/plan.rb',
+      'test/semicolons.rb',
+      'test/test1.rb',
+    ].sort
   end
 end
 
