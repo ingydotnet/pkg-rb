@@ -26,14 +26,7 @@ desc 'Run the tests'
 task :test do
   Rake::TestTask.new do |t|
     t.verbose = true
-#     t.test_files = FileList['test/*.rb'].sort
-    t.test_files = FileList[
-      'test/basic.rb',
-      'test/match.rb',
-      'test/plan.rb',
-      'test/semicolons.rb',
-      'test/test1.rb',
-    ].sort
+    t.test_files = ENV['DEV_TEST_FILES'].split || FileList['test/*.rb'].sort
   end
 end
 
