@@ -27,7 +27,7 @@ task :test do
   Rake::TestTask.new do |t|
     t.verbose = true
     t.test_files = ENV['DEV_TEST_FILES'] &&
-      FileList[ENV['DEV_TEST_FILES']] ||
+      FileList[ENV['DEV_TEST_FILES'].split] ||
       FileList['test/**/*.rb'].sort
   end
 end
