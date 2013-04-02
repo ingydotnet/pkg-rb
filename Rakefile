@@ -24,6 +24,7 @@ CLEAN.include GemDir, GemFile, 'data.tar.gz', 'metadata.gz'
 
 desc 'Run the tests'
 task :test do
+  load '.env' if File.exists? '.env'
   Rake::TestTask.new do |t|
     t.verbose = true
     t.test_files = ENV['DEV_TEST_FILES'] &&
