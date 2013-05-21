@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+require 'psych'
+require 'pp'
+
+if !ARGV.empty?
+  yaml_file = ARGV.shift
+  fail "Only one yaml file argument allowed" unless ARGV.empty?
+  fail "Not a YAML file" unless yaml_file =~ /\.yaml/
+else
+  files = Dir.glob '*.yaml'
+  fail "More than one yaml file found" if files.size > 1
+  yaml_file = files.first
+end
+
+yaml = File.read yaml_file
+
+def regexify(node)
+  if regex = node['.rgx']
+    node['.rgx'] = make_regex(regex)
+  end
+  if group = node['.all'] || node['.any']
+    group.each {|e| regexify e}
+  end
+  if sep = node['.sep']
+    regexify sep
+  end
+end
+
+def make_regex(regex)
+  regex = ':' + regex.to_s if regex.kind_of? Symbol
+  Regexp.new('\\A' + regex)
+end
+
+tree = Psych.load(yaml).each {|k, v| regexify(v)}
+
+pp tree
